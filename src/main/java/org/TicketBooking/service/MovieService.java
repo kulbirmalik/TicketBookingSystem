@@ -1,7 +1,6 @@
 package org.TicketBooking.service;
 
 import org.TicketBooking.model.MovieResponse;
-import org.TicketBooking.model.UserResponse;
 import org.TicketBooking.model.dto.MovieRequestDto;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +31,14 @@ public class MovieService {
         throw new RuntimeException("Movie Name Not Registered with system :  " + movieName);
     }
 
+    public int getRemainingSeats(String movieName){
+        if(movieNameToMovieIdMap.containsKey(movieName)){
+            String movieId = movieNameToMovieIdMap.get(movieName);
+            return movieResponseToMovieIdMap.get(movieId).getAvailableSlots();
+        }
+        throw new RuntimeException("Movie Name Not Registered with system :  " + movieName);
+    }
+
     private MovieResponse getResponseFromRequestDto(MovieRequestDto movieRequestDto, String movieId){
         return new MovieResponse().setMovieId(movieId)
                 .setMovieName(movieRequestDto.getMovieName())
@@ -39,4 +46,9 @@ public class MovieService {
                 .setAvailableSlots(movieRequestDto.getAvailableSlots());
     }
 
+    public void updateRemaniningSlots(int remaniningSlots, String movieName) {
+        String movieId = movieNameToMovieIdMap.get(movieName);
+        MovieResponse movieResponse =  movieResponseToMovieIdMap.get(movieId);
+        movieResponse.setAvailableSlots(remaniningSlots);
+    }
 }
