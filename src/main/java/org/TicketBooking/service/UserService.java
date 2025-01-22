@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public String getUserIdFromEmail(EmailRequestDto emailRequestDto){
-        String emailId = emailRequestDto.getEmailId();
+        String emailId = emailRequestDto.getEmailAddress();
         if(emailAddressToUserIdMap.containsKey(emailId)){
             return emailAddressToUserIdMap.get(emailId);
         }
