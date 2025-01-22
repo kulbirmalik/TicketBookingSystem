@@ -26,4 +26,14 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserIdFromEmail(emailRequestDto));
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> getUserFromId(@PathVariable("userId") String userId){
+        return ResponseEntity.ok(userService.getUserResponseFromId(userId));
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<UserResponse> deleteUser(@PathVariable("userId") String userId){
+        return ResponseEntity.ok(userService.deleteUser(userId));
+    }
+
 }
